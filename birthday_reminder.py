@@ -1,12 +1,16 @@
 from datetime import datetime
 
-users = [{"name": "Andrzej", "birthday": datetime(1983, 10, 27)}, {"name": "Marta", "birthday": datetime(2000, 9, 9)},
+users = [{"name": "Andrzej", "birthday": datetime(1983, 10, 27)},
+         {"name": "Marta", "birthday": datetime(2000, 9, 9)},
          {"name": "Aldona", "birthday": datetime(2000, 9, 10)},
-         {"name": "Michal", "birthday": datetime(2000, 9, 11)}, {"name": "Wiktoria", "birthday": datetime(2000, 9, 12)},
+         {"name": "Michal", "birthday": datetime(2000, 9, 11)},
+         {"name": "Wiktoria", "birthday": datetime(2000, 9, 12)},
          {"name": "Wladek", "birthday": datetime(2000, 9, 13)},
-         {"name": "Iga", "birthday": datetime(2000, 9, 14)}, {"name": "Tadek", "birthday": datetime(2000, 9, 15)},
+         {"name": "Iga", "birthday": datetime(2000, 9, 14)},
+         {"name": "Tadek", "birthday": datetime(2000, 9, 15)},
          {"name": "Artur", "birthday": datetime(2000, 9, 16)},
-         {"name": "Kamila", "birthday": datetime(2000, 9, 4)}, {"name": "Natalia", "birthday": datetime(2000, 9, 3)},
+         {"name": "Kamila", "birthday": datetime(2000, 9, 4)},
+         {"name": "Natalia", "birthday": datetime(2000, 9, 3)},
          {"name": "Zuzia", "birthday": datetime(2000, 9, 19)}]
 
 weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
