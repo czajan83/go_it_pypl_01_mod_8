@@ -12,11 +12,22 @@ users = [{"name": "Andrzej", "birthday": datetime(1983, 10, 27)}, {"name": "Mart
 weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
 
 
-def get_weekday_from_datetime(this_date):
-    return this_date.weekday()
+def get_usernames_list_from_dict(users_dict):
+    current_year = datetime.today().year
+    current_day = datetime.today().timetuple().tm_yday
+    last_day_this_year = datetime(current_year, 12, 31).timetuple().tm_yday
+    users_names = []
+    days_deltas = []
+    for user in users_dict:
+        users_names.append(user["name"])
+        day_delta = user["birthday"].timetuple().tm_yday - current_day - 1
+        if day_delta < -2:
+            day_delta += last_day_this_year
+        days_deltas.append(day_delta)
+    return users_names, days_deltas
 
 
-def take_names_this_week(usernames, day_deltas, offset, next_day_week):
+def get_names_this_week(usernames, day_deltas, offset, next_day_week):
     names = ""
     for index, delta in enumerate(day_deltas):
         if delta == offset:
@@ -29,29 +40,28 @@ def take_names_this_week(usernames, day_deltas, offset, next_day_week):
     return names
 
 
-def get_birthday_per_week():
-    this_day_year = datetime(2023, 9, 10).timetuple().tm_yday
-    this_day_week = datetime(2023, 9, 10).weekday()
-    usernames = []
-    day_deltas = []
-    for user in users:
-        usernames.append(user["name"])
-        day_deltas.append(user["birthday"].timetuple().tm_yday - this_day_year - 1)
-    print(f"This week:")
-    next_day_week = this_day_week
-    offset = 0
-    while next_day_week < 5:
-        print(f"{weekdays[next_day_week]}: {take_names_this_week(usernames, day_deltas, offset, next_day_week)}")
-        offset += 1
-        next_day_week += 1
-    print(f"Next week:")
+def get_birthdays_per_single_week(week, users_names, days_deltas):
+    this_day_week = datetime.today().weekday()
+    result = f"{week} week:\n"
     next_day_week = 0
+    if week == f"This":
+        next_day_week = this_day_week
+    shift = 7 - this_day_week
+    if week == f"This":
+        shift = 0
     offset = 0
     while next_day_week < 5:
-        print(
-            f"{weekdays[next_day_week]}: {take_names_this_week(usernames, day_deltas, offset + 7 - this_day_week, next_day_week)}")
+        result += f"{weekdays[next_day_week]}: " \
+                  f"{get_names_this_week(users_names, days_deltas, offset + shift, next_day_week)}\n"
         offset += 1
         next_day_week += 1
+    return result
+
+
+def get_birthday_per_week():
+    users_names, days_deltas = get_usernames_list_from_dict(users)
+    print(get_birthdays_per_single_week(f"This", users_names, days_deltas))
+    print(get_birthdays_per_single_week(f"Next", users_names, days_deltas))
 
 
 if __name__ == "__main__":
